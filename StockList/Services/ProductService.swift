@@ -29,7 +29,7 @@ class ProductService {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         
-        let product = Product(id: nil, name: "test", price: 15, brand: "test", image: "ssdds", quantity: 2)
+        let product = Product(id: "", name: "test", price: 15, brand: "test", image: "ssdds", quantity: 2)
         let encoder = JSONEncoder()
         let encodedData = try encoder.encode(product)
         
@@ -70,7 +70,7 @@ class ProductService {
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
         
-        let product = Product(id: nil, name: "testupdated", price: 15, brand: "testupdated", image: "ssdds", quantity: 2)
+        let product = Product(id: "", name: "testupdated", price: 15, brand: "testupdated", image: "ssdds", quantity: 2)
         let encoder = JSONEncoder()
         let encodedData = try encoder.encode(product)
         

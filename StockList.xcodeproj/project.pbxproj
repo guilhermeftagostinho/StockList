@@ -15,6 +15,8 @@
 		643071C52B1D47C90073119C /* ProductResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643071C42B1D47C90073119C /* ProductResponse.swift */; };
 		643071C72B1D48BB0073119C /* ProductService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643071C62B1D48BB0073119C /* ProductService.swift */; };
 		643071C92B1D4DE10073119C /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643071C82B1D4DE10073119C /* ServiceError.swift */; };
+		643071CB2B1D53FC0073119C /* ProductsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643071CA2B1D53FC0073119C /* ProductsListView.swift */; };
+		643071CD2B1D650F0073119C /* ProductRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643071CC2B1D650F0073119C /* ProductRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		643071C42B1D47C90073119C /* ProductResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductResponse.swift; sourceTree = "<group>"; };
 		643071C62B1D48BB0073119C /* ProductService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductService.swift; sourceTree = "<group>"; };
 		643071C82B1D4DE10073119C /* ServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
+		643071CA2B1D53FC0073119C /* ProductsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsListView.swift; sourceTree = "<group>"; };
+		643071CC2B1D650F0073119C /* ProductRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,8 @@
 		643071C12B1D46EA0073119C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				643071CA2B1D53FC0073119C /* ProductsListView.swift */,
+				643071CC2B1D650F0073119C /* ProductRow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -177,7 +183,9 @@
 				643071C52B1D47C90073119C /* ProductResponse.swift in Sources */,
 				643071B42B1D40AA0073119C /* ContentView.swift in Sources */,
 				643071B22B1D40AA0073119C /* StockListApp.swift in Sources */,
+				643071CD2B1D650F0073119C /* ProductRow.swift in Sources */,
 				643071C32B1D46FF0073119C /* Product.swift in Sources */,
+				643071CB2B1D53FC0073119C /* ProductsListView.swift in Sources */,
 				643071C72B1D48BB0073119C /* ProductService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
