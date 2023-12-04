@@ -1,5 +1,5 @@
 //
-//  ProductResponse.swift
+//  ServiceError.swift
 //  StockList
 //
 //  Created by Guilherme Feitosa on 03/12/23.
@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct ProductResponse: Codable {
-    let items: [Product]
+enum ServiceError: Error {
+    case invalidURL
 }
