@@ -14,13 +14,12 @@ struct ProductDetailView: View {
     let productDataService = ProductDataService()
     
     var body: some View {
-  
+        
         ZStack{
-            
             Color(red: 0.51, green: 0.93, blue: 0.93)
                 .edgesIgnoringSafeArea(.all)
             VStack(){
-
+                
                 Spacer()
                 AsyncImage(url:URL(string: product.image), content: { image in
                     image.resizable()
@@ -35,10 +34,10 @@ struct ProductDetailView: View {
                         .foregroundColor(.black)
                         .textFieldStyle(.roundedBorder)
                 }
-                    .padding(.horizontal)
-               
+                .padding(.horizontal)
                 
                 Spacer()
+                
                 HStack(spacing: 20){
                     VStack (alignment: .leading, spacing: 10){
                         Text("Name: ")
@@ -94,17 +93,13 @@ struct ProductDetailView: View {
                     )
                     .frame(height: 50)
                     .padding()
-                
             }
         }
-        
     }
-    
 }
 
 struct ProductDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        //        ProductDetailView(name: "Test", price: 10, brand: "Test", image: "lala", quantity: 5)
         ProductDetailView(product: Product(id: "", name: "", price: 1.1, brand: "", image: "", quantity: 2))
     }
 }

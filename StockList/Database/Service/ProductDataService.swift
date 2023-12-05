@@ -8,7 +8,6 @@
 import Foundation
 import RealmSwift
 
-
 struct ProductDataService {
     
     func getProducts() -> [ProductData] {
@@ -39,10 +38,4 @@ struct ProductDataService {
             }
         }
     }
-    
-    
-    
-    
-    
-    
 }

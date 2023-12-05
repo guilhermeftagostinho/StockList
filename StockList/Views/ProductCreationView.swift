@@ -10,17 +10,12 @@ import SwiftUI
 struct ProductCreationView: View {
     
     @State var product = Product()
-
+    
     let productService = ProductService()
     let productDataService = ProductDataService()
-
     
     var body: some View {
-        
-        
-        
         ZStack{
-            
             Color(red: 0.51, green: 0.93, blue: 0.93)
                 .edgesIgnoringSafeArea(.all)
             VStack(){
@@ -41,7 +36,7 @@ struct ProductCreationView: View {
                         .foregroundColor(.black)
                         .textFieldStyle(.roundedBorder)
                 }
-                    .padding(.horizontal)
+                .padding(.horizontal)
                 
                 Spacer()
                 HStack(spacing: 20){
@@ -88,27 +83,22 @@ struct ProductCreationView: View {
                         Button(action: {
                             Task {
                                 do {
-                                   let createResult = try await productService.createProduct(product: product)
-                                    try productDataService.save(product: ProductData(id: createResult.id, name: createResult.name, price: createResult.price, brand: createResult.brand, image: createResult.image, quantity: createResult.quantity))
+                                    let createResult = try await productService.createProduct(product: product)
+                                    try productDataService.save(product: ProductData(product: createResult))
                                 } catch {
                                     print (error.localizedDescription)
                                 }
                             }
                         }, label: {
                             Text("Save").frame(maxWidth: .infinity, maxHeight: .infinity)
-                               
                         })
                     )
                     .frame(height: 50)
                     .padding()
-                
             }
         }
-        
     }
-    
-    }
-
+}
 
 struct ProductCreationView_Previews: PreviewProvider {
     static var previews: some View {

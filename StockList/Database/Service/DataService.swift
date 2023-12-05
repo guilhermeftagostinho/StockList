@@ -11,7 +11,6 @@ import RealmSwift
 struct DataService {
     
     static var realm: Realm?
-    var a: String = ""
     
     static func initializeRealm() {
         do {
@@ -21,5 +20,4 @@ struct DataService {
             print("Database fail")
         }
     }
-    
 }

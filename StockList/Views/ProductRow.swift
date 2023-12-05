@@ -21,26 +21,23 @@ struct ProductRow: View {
                             .aspectRatio(contentMode: .fit)
                     }, placeholder: {})
                     .frame(width: 60, height: 60)
-
                     
                     VStack (alignment: .leading, spacing: 10) {
                         Text("\(product.name )")
                             .bold()
                         Text("\(product.brand )")
-
                     }
+                    
                     Spacer()
                     
                     VStack (alignment: .leading, spacing: 10) {
                         Text("Quantity: \(product.quantity )")
                         Text("Price: \(String(format: "%.2f", product.price ))")
                     }
-                        
-                        
+                    
                 }
                     .padding(.horizontal)
                     .padding(.vertical)
-                
             )
     }
 }

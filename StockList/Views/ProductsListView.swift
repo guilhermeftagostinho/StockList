@@ -14,10 +14,8 @@ struct ProductsListView: View {
     let productDataService = ProductDataService()
     
     var body: some View {
-        
         NavigationView{
             VStack{
-                
                 List(products) { product in
                     ZStack{
                         NavigationLink(destination: ProductDetailView(product: product), label: {
@@ -35,7 +33,7 @@ struct ProductsListView: View {
                                     try await productService.deleteProduct(id: product.id)
                                     try productDataService.delete(id: product.id)
                                     let productDataResult = productDataService.getProducts()
-                                    self.products = productDataResult.map({Product(id: $0.id, name: $0.name, price: $0.price, brand: $0.brand, image: $0.image, quantity: $0.quantity)})
+                                    self.products = productDataResult.map({Product(productData: $0)})
                                 } catch {
                                     print (error.localizedDescription)
                                 }
@@ -45,7 +43,6 @@ struct ProductsListView: View {
                         }
                         .tint(.red)
                     }
-                    
                 }
                 .listStyle(PlainListStyle())
                 .scrollContentBackground(.hidden)
@@ -71,22 +68,19 @@ struct ProductsListView: View {
                         let products = try await productService.getProducts()
                         let productsData = products.map({ProductData(product: $0)})
                         try productDataService.save(products: productsData)
-                        
                     } catch {
                         print (error.localizedDescription)
                     }
                     let productDataResult = productDataService.getProducts()
-                    self.products = productDataResult.map({Product(id: $0.id, name: $0.name, price: $0.price, brand: $0.brand, image: $0.image, quantity: $0.quantity)})
+                    self.products = productDataResult.map({Product(productData: $0)})
                 }
             }
         }
     }
     
-
     struct ProductsListView_Previews: PreviewProvider {
         static var previews: some View {
             ProductsListView()
         }
     }
-    
 }
