@@ -9,21 +9,9 @@ import SwiftUI
 
 struct ProductDetailView: View {
     
-    //    let name: String?
-    //    let price: Double?
-    //    let brand: String?
-    //    let image: String?
-    //    let quantity: Int?
-    
-    @State var name = "test"
-    @State var price = 0.0
-    @State var brand = ""
-    @State var quantity = 0
-    @State var image = ""
-    @State var id = ""
-    
     @State var product : Product
     let productService = ProductService()
+    let productDataService = ProductDataService()
     
     var body: some View {
   
@@ -94,8 +82,8 @@ struct ProductDetailView: View {
                         Button(action: {
                             Task {
                                 do {
-                                    try await productService.updateProduct(product: product)
-                                    
+                                    let updateResult = try await productService.updateProduct(product: product)
+                                    try productDataService.save(product: ProductData(id: updateResult.id, name: updateResult.name, price: updateResult.price, brand: updateResult.brand, image: updateResult.image, quantity: updateResult.quantity))
                                 } catch {
                                     print (error.localizedDescription)
                                 }

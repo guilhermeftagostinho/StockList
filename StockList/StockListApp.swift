@@ -6,9 +6,15 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 @main
-struct StockListApp: App {
+struct StockListApp: SwiftUI.App {
+    
+    init () {
+        DataService.initializeRealm()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ProductsListView()

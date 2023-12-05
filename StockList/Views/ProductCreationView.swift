@@ -12,6 +12,7 @@ struct ProductCreationView: View {
     @State var product = Product()
 
     let productService = ProductService()
+    let productDataService = ProductDataService()
 
     
     var body: some View {
@@ -87,8 +88,8 @@ struct ProductCreationView: View {
                         Button(action: {
                             Task {
                                 do {
-                                    try await productService.createProduct(product: product)
-                                    
+                                   let createResult = try await productService.createProduct(product: product)
+                                    try productDataService.save(product: ProductData(id: createResult.id, name: createResult.name, price: createResult.price, brand: createResult.brand, image: createResult.image, quantity: createResult.quantity))
                                 } catch {
                                     print (error.localizedDescription)
                                 }

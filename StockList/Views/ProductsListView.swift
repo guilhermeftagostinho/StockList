@@ -11,8 +11,7 @@ struct ProductsListView: View {
     
     let productService = ProductService()
     @State var products : [Product] = []
-    
-    
+    let productDataService = ProductDataService()
     
     var body: some View {
         
@@ -34,9 +33,9 @@ struct ProductsListView: View {
                             Task {
                                 do {
                                     try await productService.deleteProduct(id: product.id)
-                                    if let index = products.firstIndex(where: {$0.id == product.id}){
-                                        products.remove(at: index)
-                                    }
+                                    try productDataService.delete(id: product.id)
+                                    let productDataResult = productDataService.getProducts()
+                                    self.products = productDataResult.map({Product(id: $0.id, name: $0.name, price: $0.price, brand: $0.brand, image: $0.image, quantity: $0.quantity)})
                                 } catch {
                                     print (error.localizedDescription)
                                 }
@@ -45,9 +44,7 @@ struct ProductsListView: View {
                             Label("Delete", systemImage: "trash.fill")
                         }
                         .tint(.red)
-                        
                     }
-                    
                     
                 }
                 .listStyle(PlainListStyle())
@@ -57,7 +54,6 @@ struct ProductsListView: View {
                 RoundedRectangle(cornerRadius: 25)
                     .fill(Color.white)
                     .overlay(
-                        
                         NavigationLink(destination: {
                             ProductCreationView()
                         }, label: {
@@ -72,12 +68,15 @@ struct ProductsListView: View {
             .onAppear{
                 Task {
                     do {
-                        print("onappear")
-                        products = try await productService.getProducts()
+                        let products = try await productService.getProducts()
+                        let productsData = products.map({ProductData(id: $0.id, name: $0.name, price: $0.price, brand: $0.brand, image: $0.image, quantity: $0.quantity)})
+                        try productDataService.save(products: productsData)
                         
                     } catch {
                         print (error.localizedDescription)
                     }
+                    let productDataResult = productDataService.getProducts()
+                    self.products = productDataResult.map({Product(id: $0.id, name: $0.name, price: $0.price, brand: $0.brand, image: $0.image, quantity: $0.quantity)})
                 }
             }
         }
