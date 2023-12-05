@@ -11,50 +11,55 @@ struct ProductsListView: View {
     
     let productService = ProductService()
     @State var products : [Product] = []
-
+    
     
     
     var body: some View {
         
-        VStack{
-            NavigationView{
+        NavigationView{
+            VStack{
+                
                 List(products) { product in
-                    NavigationLink(destination: ProductDetailView(name: product.name!, price: product.price!, brand: product.brand!, quantity: product.quantity!, image: product.image!, id: product.id), label: {
-                        
+                    ZStack{
+                        NavigationLink(destination: ProductDetailView(product: product), label: {
+                            EmptyView()
+                        })
                         ProductRow(product: product)
-                            .listRowInsets(EdgeInsets())
-                            .swipeActions {
-                                Button {
-                                    Task {
-                                        do {
-                                            try await productService.deleteProduct(id: product.id)
-                                            if let index = products.firstIndex(where: {$0.id == product.id}){
-                                                products.remove(at: index)
-                                            }
-                                        } catch {
-                                            print (error.localizedDescription)
-                                        }
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .listRowBackground(Color.clear)
+                    .listRowInsets(EdgeInsets())
+                    .swipeActions {
+                        Button {
+                            Task {
+                                do {
+                                    try await productService.deleteProduct(id: product.id)
+                                    if let index = products.firstIndex(where: {$0.id == product.id}){
+                                        products.remove(at: index)
                                     }
-                                } label: {
-                                    Label("Delete", systemImage: "trash.fill")
+                                } catch {
+                                    print (error.localizedDescription)
                                 }
-                                    .tint(.red)
                             }
-                    })
+                        } label: {
+                            Label("Delete", systemImage: "trash.fill")
+                        }
+                        .tint(.red)
+                        
+                    }
+                    
                     
                 }
+                .listStyle(PlainListStyle())
+                .scrollContentBackground(.hidden)
                 .navigationBarTitle(Text("Products"))
-            }
-           
-            .listStyle(PlainListStyle())
-            .scrollContentBackground(.hidden)
-            
-            NavigationView{
+                
                 RoundedRectangle(cornerRadius: 25)
                     .fill(Color.white)
                     .overlay(
-                        Button(action: {
-                            
+                        
+                        NavigationLink(destination: {
+                            ProductCreationView()
                         }, label: {
                             Text("Create new Product")
                         })
@@ -62,28 +67,27 @@ struct ProductsListView: View {
                     .frame(height: 50)
                     .padding()
             }
-                
-            
-        }
-        
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(red: 0.51, green: 0.93, blue: 0.93))
-        .onAppear(){
-            Task {
-                do {
-                    products = try await productService.getProducts()
-                } catch {
-                    print (error.localizedDescription)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(red: 0.51, green: 0.93, blue: 0.93))
+            .onAppear{
+                Task {
+                    do {
+                        print("onappear")
+                        products = try await productService.getProducts()
+                        
+                    } catch {
+                        print (error.localizedDescription)
+                    }
                 }
             }
         }
     }
-}
+    
 
-struct ProductsListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProductsListView()
+    struct ProductsListView_Previews: PreviewProvider {
+        static var previews: some View {
+            ProductsListView()
+        }
     }
+    
 }
-
-

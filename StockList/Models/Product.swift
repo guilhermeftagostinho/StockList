@@ -9,9 +9,18 @@ import Foundation
 
 struct Product: Codable, Identifiable {
     let id: String
-    let name: String?
-    let price: Double?
-    let brand: String?
-    let image: String?
-    let quantity: Int?
+    var name: String
+    var price: Double
+    var brand: String
+    var image: String
+    var quantity: Int
+    
+    init(id: String = "", name: String = "", price: Double = 0, brand: String = "", image: String = "", quantity: Int = 0) {
+        self.id = id
+        self.name = name
+        self.price = price
+        self.brand = brand
+        self.image = image
+        self.quantity = quantity
+    }
 }

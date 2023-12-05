@@ -15,7 +15,7 @@ struct ProductRow: View {
             .frame(height: 70)
             .overlay(
                 HStack(spacing: 20){
-                    AsyncImage(url:URL(string:"\(product.image ?? "")"), content: { image in
+                    AsyncImage(url:URL(string:"\(product.image )"), content: { image in
                         image.resizable()
                             .clipShape(Circle())
                             .aspectRatio(contentMode: .fit)
@@ -24,16 +24,16 @@ struct ProductRow: View {
 
                     
                     VStack (alignment: .leading, spacing: 10) {
-                        Text("\(product.name ?? "")")
+                        Text("\(product.name )")
                             .bold()
-                        Text("\(product.brand ?? "")")
+                        Text("\(product.brand )")
 
                     }
                     Spacer()
                     
                     VStack (alignment: .leading, spacing: 10) {
-                        Text("Quantity: \(product.quantity ?? 0)")
-                        Text("Price: \(String(format: "%.2f", product.price ?? 0))")
+                        Text("Quantity: \(product.quantity )")
+                        Text("Price: \(String(format: "%.2f", product.price ))")
                     }
                         
                         
@@ -42,7 +42,6 @@ struct ProductRow: View {
                     .padding(.vertical)
                 
             )
-            .listRowBackground(Color.clear)
     }
 }
 

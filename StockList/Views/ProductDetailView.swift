@@ -15,43 +15,53 @@ struct ProductDetailView: View {
     //    let image: String?
     //    let quantity: Int?
     
-    @State var name = ""
+    @State var name = "test"
     @State var price = 0.0
     @State var brand = ""
     @State var quantity = 0
     @State var image = ""
     @State var id = ""
     
+    @State var product : Product
     let productService = ProductService()
     
     var body: some View {
-        
-        
-        
+  
         ZStack{
             
-            Color(.systemTeal)
+            Color(red: 0.51, green: 0.93, blue: 0.93)
                 .edgesIgnoringSafeArea(.all)
             VStack(){
+
                 Spacer()
-                AsyncImage(url:URL(string: image), content: { image in
+                AsyncImage(url:URL(string: product.image), content: { image in
                     image.resizable()
                         .clipShape(Circle())
                         .aspectRatio(contentMode: .fit)
                 }, placeholder: {})
                 .frame(width: 250, height: 250)
+                
+                VStack (alignment: .leading, spacing: 10){
+                    Text("Image URL: ")
+                    TextField("Image URL", text: $product.image)
+                        .foregroundColor(.black)
+                        .textFieldStyle(.roundedBorder)
+                }
+                    .padding(.horizontal)
+               
+                
                 Spacer()
                 HStack(spacing: 20){
                     VStack (alignment: .leading, spacing: 10){
                         Text("Name: ")
-                        TextField("Product name ", text: $name)
+                        TextField("Product name ", text: $product.name)
                             .foregroundColor(.black)
                             .textFieldStyle(.roundedBorder)
                     }
                     .padding(.horizontal)
                     VStack (alignment: .leading, spacing: 10){
                         Text("Product price: ")
-                        TextField("Price ", value: $price, format: .number)
+                        TextField("Price ", value: $product.price, format: .number)
                             .foregroundColor(.black)
                             .textFieldStyle(.roundedBorder)
                             .keyboardType(.decimalPad)
@@ -63,14 +73,14 @@ struct ProductDetailView: View {
                 HStack(spacing: 20){
                     VStack (alignment: .leading, spacing: 10){
                         Text("Brand: ")
-                        TextField("Product brand ", text: $brand)
+                        TextField("Product brand ", text: $product.brand)
                             .foregroundColor(.black)
                             .textFieldStyle(.roundedBorder)
                     }
                     .padding(.horizontal)
                     VStack (alignment: .leading, spacing: 10){
                         Text("Quantity: ")
-                        TextField("Quantity", value: $quantity, format: .number)
+                        TextField("Quantity", value: $product.quantity, format: .number)
                             .foregroundColor(.black)
                             .textFieldStyle(.roundedBorder)
                     }
@@ -84,8 +94,8 @@ struct ProductDetailView: View {
                         Button(action: {
                             Task {
                                 do {
-                                    try await productService.updateProduct(id: id, name: name, price: price, brand: brand, image: image, quantity: quantity)
-
+                                    try await productService.updateProduct(product: product)
+                                    
                                 } catch {
                                     print (error.localizedDescription)
                                 }
@@ -107,6 +117,6 @@ struct ProductDetailView: View {
 struct ProductDetailView_Previews: PreviewProvider {
     static var previews: some View {
         //        ProductDetailView(name: "Test", price: 10, brand: "Test", image: "lala", quantity: 5)
-        ProductDetailView()
+        ProductDetailView(product: Product(id: "", name: "", price: 1.1, brand: "", image: "", quantity: 2))
     }
 }

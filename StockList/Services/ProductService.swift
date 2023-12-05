@@ -21,7 +21,7 @@ class ProductService {
         return decodedData.items
     }
     
-    func createProduct() async throws -> Product {
+    func createProduct(product: Product) async throws -> Product {
         guard let url = URL(string: "http://54.207.173.246:8090/api/collections/product/records") else {
             throw ServiceError.invalidURL
         }
@@ -29,7 +29,6 @@ class ProductService {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         
-        let product = Product(id: "", name: "test", price: 15, brand: "test", image: "ssdds", quantity: 2)
         let encoder = JSONEncoder()
         let encodedData = try encoder.encode(product)
         
@@ -62,15 +61,14 @@ class ProductService {
         _ = try await URLSession.shared.data(for: request)
     }
     
-    func updateProduct(id: String, name: String, price: Double, brand: String, image: String, quantity: Int) async throws -> Product {
-        guard let url = URL(string: "http://54.207.173.246:8090/api/collections/product/records/\(id)") else {
+    func updateProduct(product: Product) async throws -> Product {
+        guard let url = URL(string: "http://54.207.173.246:8090/api/collections/product/records/\(product.id)") else {
             throw ServiceError.invalidURL
         }
         
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
         
-        let product = Product(id: "", name: name, price: price, brand: brand, image: image, quantity: quantity)
         let encoder = JSONEncoder()
         let encodedData = try encoder.encode(product)
         
