@@ -69,7 +69,7 @@ struct ProductsListView: View {
                 Task {
                     do {
                         let products = try await productService.getProducts()
-                        let productsData = products.map({ProductData(id: $0.id, name: $0.name, price: $0.price, brand: $0.brand, image: $0.image, quantity: $0.quantity)})
+                        let productsData = products.map({ProductData(product: $0)})
                         try productDataService.save(products: productsData)
                         
                     } catch {

@@ -27,5 +27,15 @@ class ProductData: Object {
         self.image = image
         self.quantity = quantity
     }
+    
+    convenience init(product: Product) {
+        self.init()
+        self.id = product.id
+        self.name = product.name
+        self.price = product.price
+        self.brand = product.brand
+        self.image = product.image
+        self.quantity = product.quantity
+    }
 }
 
